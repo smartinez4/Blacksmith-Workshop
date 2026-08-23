@@ -10,10 +10,20 @@ local mod = ::Hooks.register(
     ::BlacksmithWorkshop.Name
 );
 
-::BlacksmithWorkshop.Mod <- mod;
+::BlacksmithWorkshop.HooksMod <- mod;
 
-mod.queue(function()
+mod.require("mod_msu >= 1.2.0 (Modding Standards & Utilities)");
+
+mod.queue(">mod_msu", function()
 {
+    ::BlacksmithWorkshop.Mod <- ::MSU.Class.Mod(
+        ::BlacksmithWorkshop.ID,
+        ::BlacksmithWorkshop.Version,
+        ::BlacksmithWorkshop.Name
+    );
+
+    ::include("blacksmith_workshop/config");
+    ::include("blacksmith_workshop/weapon_pools");
     ::include("blacksmith_workshop/blacksmith_manager");
     ::include("blacksmith_workshop/hooks/world_state");
 });
