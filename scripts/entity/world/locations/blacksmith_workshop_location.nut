@@ -34,8 +34,8 @@ this.blacksmith_workshop_location <- this.inherit(
 
             local body = this.addSprite("body");
 
-            // TEMPORARY vanilla sprite.
-            body.setBrush("world_fortress_ruins");
+            // Use the vanilla ore smelters as the workshop's world-map sprite.
+            body.setBrush("world_ore_smelters_01");
         }
 
         function onEnter()
@@ -50,6 +50,16 @@ this.blacksmith_workshop_location <- this.inherit(
         function onDeserialize( _in )
         {
             this.location.onDeserialize(_in);
+
+            // World-location sprites are serialized into existing saves, so
+            // refresh the brush when loading a workshop created by an older
+            // version of the mod.
+            local body = this.getSprite("body");
+
+            if (body != null)
+            {
+                body.setBrush("world_ore_smelters_01");
+            }
 
             this.m.OnEnter = "event.location.blacksmith_workshop_enter";
             this.m.IsAttackable = false;

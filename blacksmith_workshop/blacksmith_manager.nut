@@ -17,10 +17,28 @@
 };
 
 
-::BlacksmithWorkshop.giveItemToStash <- function(_item)
+::BlacksmithWorkshop.giveItemToStash <- function(_item, _category)
 {
     if (_item == null)
     {
+        return false;
+    }
+
+    if (!::BlacksmithWorkshop.meetsRenownRequirement())
+    {
+        ::logError("Blacksmith Workshop: Company does not meet the renown requirement.");
+        return false;
+    }
+
+    if (::BlacksmithWorkshop.isCommissionOnCooldown())
+    {
+        ::logError("Blacksmith Workshop: Commission is still on cooldown.");
+        return false;
+    }
+
+    if (!::BlacksmithWorkshop.canAffordCommission(_category))
+    {
+        ::logError("Blacksmith Workshop: Company cannot afford the commission.");
         return false;
     }
 
@@ -33,7 +51,17 @@
         return false;
     }
 
-    ::logInfo("Blacksmith Workshop: Added famed item to stash: " + _item.getName());
+    local cost = ::BlacksmithWorkshop.getCommissionCost(_category);
+    ::World.Assets.addMoney(-cost);
+    ::BlacksmithWorkshop.recordCommission();
+
+    ::logInfo(
+        "Blacksmith Workshop: Added famed item to stash: "
+            + _item.getName()
+            + " for "
+            + cost
+            + " crowns."
+    );
 
     return true;
 };
@@ -70,7 +98,8 @@
 ::BlacksmithWorkshop.giveRandomNamedArmor <- function()
 {
     return ::BlacksmithWorkshop.giveItemToStash(
-    ::BlacksmithWorkshop.createRandomNamedArmor()
+    ::BlacksmithWorkshop.createRandomNamedArmor(),
+    "Armor"
     );
 };
 
@@ -78,7 +107,8 @@
 ::BlacksmithWorkshop.giveRandomNamedHelmet <- function()
 {
     return ::BlacksmithWorkshop.giveItemToStash(
-    ::BlacksmithWorkshop.createRandomNamedHelmet()
+    ::BlacksmithWorkshop.createRandomNamedHelmet(),
+    "Helmet"
     );
 };
 
@@ -86,7 +116,8 @@
 ::BlacksmithWorkshop.giveRandomNamedShield <- function()
 {
     return ::BlacksmithWorkshop.giveItemToStash(
-    ::BlacksmithWorkshop.createRandomNamedShield()
+    ::BlacksmithWorkshop.createRandomNamedShield(),
+    "Shield"
     );
 };
 
@@ -96,28 +127,13 @@
 // ---------------------------------------------------------
 ::BlacksmithWorkshop.getNamedWeaponPoolByCategory <- function(_category)
 {
-    local result = [];
-
-    foreach (weaponPath in ::Const.Items.NamedMeleeWeapons)
+    if (!(_category in ::BlacksmithWorkshop.NamedWeaponPools))
     {
-        local item = ::new("scripts/items/" + weaponPath);
-
-        if (!("Categories" in item.m))
-        {
-            continue;
-        }
-
-        local categories = item.m.Categories;
-
-        ::logInfo("Blacksmith Workshop: Checking " + weaponPath + " - category: " + categories);
-
-        if (categories.find(_category) == 0)
-        {
-            result.push(weaponPath);
-        }
+        ::logError("Blacksmith Workshop: Unknown weapon category " + _category);
+        return [];
     }
 
-    return result;
+    return ::BlacksmithWorkshop.NamedWeaponPools[_category];
 };
 
 
@@ -149,6 +165,7 @@
     return ::BlacksmithWorkshop.giveItemToStash(
     ::BlacksmithWorkshop.createRandomNamedWeaponType(
     _category
-    )
+    ),
+    "Weapon"
     );
 };
