@@ -51,5 +51,18 @@
         "weapons/named/named_dagger",
         "weapons/named/named_estoc",
         "weapons/named/named_qatal_dagger"
+    ],
+    Bow = [
+        "weapons/named/named_warbow"
+    ],
+    Crossbow = [
+        "weapons/named/named_crossbow"
+    ],
+    Firearm = [
+        "weapons/named/named_handgonne"
+    ],
+    ThrowingWeapon = [
+        "weapons/named/named_javelin",
+        "weapons/named/named_throwing_axe"
     ]
 };

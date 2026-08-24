@@ -1,7 +1,10 @@
 # Changelog
 
-
 ## 1.1.0
+- Added separate melee and ranged weapon commissions to the workshop's main menu.
+- Added bow, crossbow, handgonne, and throwing weapon commissions at the existing weapon price.
+
+## 1.0.1
 - Added text and image in the smith's dialogue to show the item obtained and money spent.
 - Added error case and dialogue for when the player has no room in their inventory.
 - Modified some flavor text.

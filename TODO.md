@@ -1,3 +1,3 @@
 ## TODO List for this project
 
-- Ranged weapons
+No outstanding items.
