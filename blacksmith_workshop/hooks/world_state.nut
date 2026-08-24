@@ -171,6 +171,16 @@
 };
 
 
+::BlacksmithWorkshop.HooksMod.hook("scripts/states/world_state", function(q)
+{
+    q.startNewCampaign = @(__original) function()
+    {
+        __original();
+        ::BlacksmithWorkshop.spawnWorkshop();
+    }
+});
+
+
 ::mods_addHook("onCampaignLoaded", function(_worldState)
 {
     ::BlacksmithWorkshop.spawnWorkshop();

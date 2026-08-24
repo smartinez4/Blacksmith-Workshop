@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1
+- Fixed the workshop not spawning until the first save was reloaded in a new campaign.
+
 ## 1.1.0
 - Added separate melee and ranged weapon commissions to the workshop's main menu.
 - Added bow, crossbow, handgonne, and throwing weapon commissions at the existing weapon price.
