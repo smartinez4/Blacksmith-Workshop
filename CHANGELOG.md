@@ -1,13 +1,12 @@
 # Changelog
 
-All notable changes to Blacksmith's Workshop are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## 1.1.0
+- Added text and image in the smith's dialogue to show the item obtained and money spent.
+- Added error case and dialogue for when the player has no room in their inventory.
+- Modified some flavor text.
 
-## [1.0.0] - 2026-08-24
-
-### Added
-
+## 1.0.0
 - A unique Blacksmith's Workshop location that is placed near a settlement when a campaign is loaded.
 - An event-driven interface for commissioning famed weapons, body armor, helmets, and shields.
 - Weapon commissions organized into sword, axe, mace, hammer, cleaver, flail, spear, polearm, and dagger families.
@@ -17,4 +16,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Persistent commission cooldown tracking across campaign saves.
 - Support for refreshing the workshop's map sprite when loading workshops created by earlier builds.
 
-[1.0.0]: https://github.com/smartinez4/Blacksmith-Workshop/releases/tag/v1.0.0

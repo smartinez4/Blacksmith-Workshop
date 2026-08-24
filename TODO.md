@@ -1,3 +1,3 @@
 ## TODO List for this project
 
-- Ranged weapons?
+- Ranged weapons

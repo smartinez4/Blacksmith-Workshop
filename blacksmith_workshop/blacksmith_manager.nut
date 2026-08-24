@@ -17,8 +17,35 @@
 };
 
 
+::BlacksmithWorkshop.LastCommissionFailureScreen <- "Failed";
+::BlacksmithWorkshop.LastCommissionedItem <- null;
+::BlacksmithWorkshop.LastCommissionCost <- 0;
+
+
+::BlacksmithWorkshop.getLastCommissionFailureScreen <- function()
+{
+    return ::BlacksmithWorkshop.LastCommissionFailureScreen;
+};
+
+
+::BlacksmithWorkshop.getLastCommissionedItem <- function()
+{
+    return ::BlacksmithWorkshop.LastCommissionedItem;
+};
+
+
+::BlacksmithWorkshop.getLastCommissionCost <- function()
+{
+    return ::BlacksmithWorkshop.LastCommissionCost;
+};
+
+
 ::BlacksmithWorkshop.giveItemToStash <- function(_item, _category)
 {
+    ::BlacksmithWorkshop.LastCommissionFailureScreen = "Failed";
+    ::BlacksmithWorkshop.LastCommissionedItem = null;
+    ::BlacksmithWorkshop.LastCommissionCost = 0;
+
     if (_item == null)
     {
         return false;
@@ -47,11 +74,14 @@
     if (!stash.add(_item))
     {
         ::logError("Blacksmith Workshop: Could not add item to stash.");
+        ::BlacksmithWorkshop.LastCommissionFailureScreen = "InventoryFull";
 
         return false;
     }
 
     local cost = ::BlacksmithWorkshop.getCommissionCost(_category);
+    ::BlacksmithWorkshop.LastCommissionedItem = _item;
+    ::BlacksmithWorkshop.LastCommissionCost = cost;
     ::World.Assets.addMoney(-cost);
     ::BlacksmithWorkshop.recordCommission();
 
