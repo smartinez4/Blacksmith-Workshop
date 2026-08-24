@@ -8,12 +8,7 @@
         {
             local tile = location.getTile();
 
-            ::logInfo(
-            "Blacksmith Workshop: Existing workshop coordinates: "
-                + tile.SquareCoords.X
-                + ", "
-                + tile.SquareCoords.Y
-            );
+            ::logInfo("Blacksmith Workshop: Existing workshop coordinates: " + tile.SquareCoords.X + ", " + tile.SquareCoords.Y);
 
             local nearestSettlement = null;
             local nearestDistance = 9999;
@@ -32,12 +27,7 @@
 
             if (nearestSettlement != null)
             {
-                ::logInfo(
-                "Blacksmith Workshop: Nearest settlement is "
-                    + nearestSettlement.getName()
-                    + " at distance "
-                    + nearestDistance
-                );
+                ::logInfo("Blacksmith Workshop: Nearest settlement is " + nearestSettlement.getName() + " at distance " + nearestDistance);
             }
 
             return true;
@@ -149,12 +139,7 @@
         return;
     }
 
-    ::logInfo(
-    "Blacksmith Workshop: Spawning workshop at "
-        + tile.SquareCoords.X
-        + ", "
-        + tile.SquareCoords.Y
-    );
+    ::logInfo("Blacksmith Workshop: Spawning workshop at " + tile.SquareCoords.X + ", " + tile.SquareCoords.Y);
 
     local workshop = ::World.spawnEntity(
     "scripts/entity/world/locations/blacksmith_workshop_location",
@@ -179,17 +164,10 @@
 
     if (nearestSettlement != null)
     {
-        ::logInfo(
-        "Blacksmith Workshop: Nearest settlement is "
-            + nearestSettlement.getName()
-            + " at distance "
-            + nearestDistance
-        );
+        ::logInfo("Blacksmith Workshop: Nearest settlement is " + nearestSettlement.getName() + " at distance " + nearestDistance);
     }
 
-    ::logInfo(
-    "Blacksmith Workshop: Spawn successful."
-    );
+    ::logInfo("Blacksmith Workshop: Spawn successful.");
 };
 
 
