@@ -1,6 +1,6 @@
 ::BlacksmithWorkshop <- {
     ID = "mod_blacksmith_workshop",
-    Version = "0.1.0",
+    Version = "1.0.0",
     Name = "Blacksmith's Workshop"
 };
 
