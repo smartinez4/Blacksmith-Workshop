@@ -23,7 +23,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                 Options = [
                 {
-                    Text = "Commission a famed weapon (%weapon_commission_cost% crowns).",
+                    Text = "Commission a famed melee weapon (%weapon_commission_cost% crowns).",
 
                     function getResult( _event )
                     {
@@ -34,7 +34,23 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return failureScreen;
                         }
 
-                        return "WeaponMenu";
+                        return "MeleeWeaponMenu";
+                    }
+                },
+
+                {
+                    Text = "Commission a famed ranged weapon (%weapon_commission_cost% crowns).",
+
+                    function getResult( _event )
+                    {
+                        local failureScreen = ::BlacksmithWorkshop.getCommissionFailureScreen("Weapon");
+
+                        if (failureScreen != null)
+                        {
+                            return failureScreen;
+                        }
+
+                        return "RangedWeaponMenu";
                     }
                 },
 
@@ -286,11 +302,11 @@ this.blacksmith_workshop_enter_event <- this.inherit(
             });
 
             this.m.Screens.push({
-                ID = "WeaponMenu",
+                ID = "MeleeWeaponMenu",
 
                 Text = "[img]gfx/ui/events/event_115.png[/img]"
-                    + "The blacksmith folds his arms and looks toward the weapon racks lining the walls.\n\n"
-                    + "%SPEECH_ON%What sort of weapon are you after?%SPEECH_OFF%",
+                    + "The blacksmith gestures toward a row of blades, axes, and hammers.\n\n"
+                    + "%SPEECH_ON%What kind of melee weapon did you have in mind?%SPEECH_OFF%",
 
                 Image = "",
                 List = [],
@@ -358,7 +374,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                     function getResult( _event )
                     {
-                        return "WeaponMenu2";
+                        return "MeleeWeaponMenu2";
                     }
                 },
 
@@ -378,7 +394,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
             });
 
             this.m.Screens.push({
-                ID = "WeaponMenu2",
+                ID = "MeleeWeaponMenu2",
 
                 Text = "[img]gfx/ui/events/event_115.png[/img]"
                     + "The smith gestures toward another rack near the back of the forge.\n\n"
@@ -464,7 +480,90 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                     function getResult( _event )
                     {
-                        return "WeaponMenu";
+                        return "MeleeWeaponMenu";
+                    }
+                }
+                ],
+
+                function start( _event )
+                {
+                }
+            });
+
+            this.m.Screens.push({
+                ID = "RangedWeaponMenu",
+
+                Text = "[img]gfx/ui/events/event_115.png[/img]"
+                    + "The smith points to bows and mechanisms hanging beyond the forge's sparks.\n\n"
+                    + "%SPEECH_ON%And how do you prefer to strike from afar?%SPEECH_OFF%",
+
+                Image = "",
+                List = [],
+                Characters = [],
+
+                Options = [
+                {
+                    Text = "A bow.",
+
+                    function getResult( _event )
+                    {
+                        if (::BlacksmithWorkshop.giveRandomNamedWeaponType("Bow"))
+                        {
+                            return "WeaponReceived";
+                        }
+
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
+                    }
+                },
+
+                {
+                    Text = "A crossbow.",
+
+                    function getResult( _event )
+                    {
+                        if (::BlacksmithWorkshop.giveRandomNamedWeaponType("Crossbow"))
+                        {
+                            return "WeaponReceived";
+                        }
+
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
+                    }
+                },
+
+                {
+                    Text = "A handgonne.",
+
+                    function getResult( _event )
+                    {
+                        if (::BlacksmithWorkshop.giveRandomNamedWeaponType("Firearm"))
+                        {
+                            return "WeaponReceived";
+                        }
+
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
+                    }
+                },
+
+                {
+                    Text = "A throwing weapon.",
+
+                    function getResult( _event )
+                    {
+                        if (::BlacksmithWorkshop.giveRandomNamedWeaponType("ThrowingWeapon"))
+                        {
+                            return "WeaponReceived";
+                        }
+
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
+                    }
+                },
+
+                {
+                    Text = "Back.",
+
+                    function getResult( _event )
+                    {
+                        return "A";
                     }
                 }
                 ],
