@@ -31,10 +31,10 @@ The **Balance** page in MSU's mod settings exposes the following options:
 | Setting | Default | Purpose |
 | --- | ---: | --- |
 | Minimum Renown | 3,000 | Renown required to commission an item |
-| Weapon Commission Cost | 50,000 crowns | Price of a famed weapon |
-| Armor Commission Cost | 70,000 crowns | Price of famed body armor |
-| Helmet Commission Cost | 45,000 crowns | Price of a famed helmet |
-| Shield Commission Cost | 35,000 crowns | Price of a famed shield |
+| Weapon Commission Cost | 40,000 crowns | Price of a famed weapon |
+| Armor Commission Cost | 45,000 crowns | Price of famed body armor |
+| Helmet Commission Cost | 35,000 crowns | Price of a famed helmet |
+| Shield Commission Cost | 20,000 crowns | Price of a famed shield |
 | Commission Cooldown | 20 days | Wait after a successful commission |
 
 The item is added before payment is taken. If the stash cannot accept it, the commission fails without charging crowns or starting the cooldown.

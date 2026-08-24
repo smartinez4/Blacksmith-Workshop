@@ -57,7 +57,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "ArmorReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -78,7 +78,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "HelmetReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -101,7 +101,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "ShieldReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -125,7 +125,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                 Text = "[img]gfx/ui/events/event_115.png[/img]"
                     + "The ringing of hammer against steel grows louder as you approach the secluded workshop. "
                     + "The blacksmith glances at your company, but does not set down his hammer."
-                    + "%SPEECH_ON%I've heard of better-known companies than yours. Come back when your name carries some weight.%SPEECH_OFF%"
+                    + "%SPEECH_ON%Can’t say I’ve heard your name before. I don’t waste good steel on just anyone. Come back when your name carries some weight.%SPEECH_OFF%"
                     + "He turns back to the anvil, making it clear that there will be no business today.\n\n"
                     + "Requires %minimum_renown% renown.",
 
@@ -307,7 +307,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -321,7 +321,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -335,7 +335,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -349,7 +349,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -399,7 +399,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -413,7 +413,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -427,7 +427,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -441,7 +441,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -455,7 +455,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                             return "WeaponReceived";
                         }
 
-                        return "Failed";
+                        return ::BlacksmithWorkshop.getLastCommissionFailureScreen();
                     }
                 },
 
@@ -497,6 +497,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
                 ],
 
                 function start(_event) {
+                    _event.addCommissionResultToList(this.List);
                 }
             });
 
@@ -525,6 +526,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                 function start( _event )
                 {
+                    _event.addCommissionResultToList(this.List);
                 }
             });
 
@@ -552,6 +554,7 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                 function start( _event )
                 {
+                    _event.addCommissionResultToList(this.List);
                 }
             });
 
@@ -580,9 +583,37 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                 function start( _event )
                 {
+                    _event.addCommissionResultToList(this.List);
                 }
             });
 
+
+            this.m.Screens.push({
+                ID = "InventoryFull",
+
+                Text = "[img]gfx/ui/events/event_115.png[/img]"
+                    + "The blacksmith looks from the finished commission to your overstuffed pack and scowls.\n\n"
+                    + "%SPEECH_ON%What am I supposed to do with it, hang it around your neck? Clear some space in that damned pack and come back%SPEECH_OFF%",
+
+                Image = "",
+                List = [],
+                Characters = [],
+
+                Options = [
+                {
+                    Text = "Leave.",
+
+                    function getResult( _event )
+                    {
+                        return 0;
+                    }
+                }
+                ],
+
+                function start( _event )
+                {
+                }
+            });
 
             this.m.Screens.push({
                 ID = "Failed",
@@ -607,6 +638,36 @@ this.blacksmith_workshop_enter_event <- this.inherit(
 
                 function start(_event) {
                 }
+            });
+        }
+
+        function addCommissionResultToList( _list )
+        {
+            local item = ::BlacksmithWorkshop.getLastCommissionedItem();
+
+            if (item == null)
+            {
+                return;
+            }
+
+            _list.push({
+                id = 10,
+                icon = "ui/items/" + item.getIcon(),
+                text = "You gain "
+                    + ::Const.Strings.getArticle(item.getName())
+                    + item.getName()
+            });
+
+            local cost = ::BlacksmithWorkshop.getLastCommissionCost();
+
+            _list.push({
+                id = 10,
+                icon = "ui/icons/asset_money.png",
+                text = "You spend [color="
+                    + ::Const.UI.Color.NegativeEventValue
+                    + "]"
+                    + cost
+                    + "[/color] Crowns"
             });
         }
 
