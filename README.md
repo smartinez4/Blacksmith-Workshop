@@ -2,7 +2,7 @@
 
 Blacksmith's Workshop is a mod for **Battle Brothers** that adds a unique master blacksmith location to the world map. The workshop gives established companies a reliable, expensive way to commission famed equipment instead of relying entirely on random shop inventories and loot.
 
-When a campaign is loaded, the mod places one workshop on a reachable tile near a randomly selected settlement. Visiting it opens an event where the company can commission:
+When a campaign is created or loaded, the mod places one workshop on a reachable tile near a randomly selected settlement. Visiting it opens an event where the company can commission:
 
 - a melee weapon from a selected family (sword, axe, mace, hammer, cleaver, flail, spear, polearm, or dagger);
 - a ranged weapon from a selected family (bow, crossbow, handgonne, or throwing weapon);
