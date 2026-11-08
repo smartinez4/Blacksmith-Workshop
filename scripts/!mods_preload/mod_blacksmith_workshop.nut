@@ -1,6 +1,6 @@
 ::BlacksmithWorkshop <- {
     ID = "mod_blacksmith_workshop",
-    Version = "1.0.0",
+    Version = "1.1.2",
     Name = "Blacksmith's Workshop"
 };
 
@@ -12,7 +12,10 @@ local mod = ::Hooks.register(
 
 ::BlacksmithWorkshop.HooksMod <- mod;
 
-mod.require("mod_msu >= 1.2.0 (Modding Standards & Utilities)");
+mod.require(
+    "mod_modern_hooks (Modern Hooks)",
+    "mod_msu >= 1.2.0 (Modding Standards & Utilities)"
+);
 
 mod.queue(">mod_msu", function()
 {
