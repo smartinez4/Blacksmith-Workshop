@@ -178,10 +178,11 @@
         __original();
         ::BlacksmithWorkshop.spawnWorkshop();
     }
-});
 
-
-::mods_addHook("onCampaignLoaded", function(_worldState)
-{
-    ::BlacksmithWorkshop.spawnWorkshop();
+    q.loadCampaign = @(__original) function(_campaignFileName)
+    {
+        local result = __original(_campaignFileName);
+        ::BlacksmithWorkshop.spawnWorkshop();
+        return result;
+    }
 });
