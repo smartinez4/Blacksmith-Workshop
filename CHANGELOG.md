@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2
+- Replaced the legacy campaign-loaded hook with Modern Hooks to fix the missing `mods_addHook` error.
+
 ## 1.1.1
 - Fixed the workshop not spawning until the first save was reloaded in a new campaign.
 
